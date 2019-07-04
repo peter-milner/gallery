@@ -11,3 +11,5 @@
 3. Run:
 `docker-compose up`
 The application should be up on `localhost:5000`
+
+4. Add pre-commit.sh to your git hooks (Optional)

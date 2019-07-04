@@ -1,3 +1,5 @@
+# pylint: disable=C0103,C0111
+
 from flask import Flask
 app = Flask(__name__)
 
