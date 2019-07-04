@@ -8,3 +8,11 @@ services:
     volumes:
       - /path/to/src:/app
     command: flask run -h 0.0.0.0
+  webpack:
+    container_name: my-g-webpack
+    depends_on:
+      - flask
+    build: .
+    volumes:
+      - /path/to/src:/app
+    command: yarn run watch
