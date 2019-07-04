@@ -1,2 +1,5 @@
 # Docker related
 docker-compose.yml
+
+# Python related
+__pycache__/
