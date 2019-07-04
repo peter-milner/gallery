@@ -1,0 +1,10 @@
+version: '3'
+services:
+  flask:
+    container_name: my-g
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - /path/to/src:/app
+    command: flask run -h 0.0.0.0
