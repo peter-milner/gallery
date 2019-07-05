@@ -1,9 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider, } from 'react-apollo'
 import 'bulma/css/bulma.min.css'
 
 import Base from './components/base'
 
-const props = JSON.parse(document.getElementById('content').getAttribute('props'))
+const client = new ApolloClient()
 
-ReactDOM.render(<Base {...props} />, document.getElementById('content'))
+const App = () => (
+    <ApolloProvider client={client}>
+		<Base />
+	</ApolloProvider>
+)
+
+ReactDOM.render(<App />, document.getElementById('content'))
