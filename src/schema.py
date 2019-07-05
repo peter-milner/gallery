@@ -1,8 +1,7 @@
-import os
 import requests
 import graphene
 
-CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
+from flask import current_app
 
 class Photo(graphene.ObjectType):
     url = graphene.String()
@@ -21,7 +20,7 @@ class Query(graphene.ObjectType):
     def resolve_photos(self, _info, page):
         params = {
             'feature': 'popular',
-            'consumer_key': CONSUMER_KEY,
+            'consumer_key': current_app.config['CONSUMER_KEY'],
             'page': page
         }
         r = requests.get('https://api.500px.com/v1/photos', params=params).json()
