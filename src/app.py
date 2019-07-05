@@ -1,18 +1,21 @@
 # pylint: disable=C0103,C0111
 
-import os
-import requests
 from flask import Flask, render_template
+from flask_graphql import GraphQLView
 
-CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
+from schema import schema
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    params = {
-        'feature': 'popular',
-        'consumer_key': CONSUMER_KEY
-    }
-    r = requests.get('https://api.500px.com/v1/photos', params=params)
-    return render_template('index.html', props=r.json())
+    return render_template('index.html')
+
+app.add_url_rule(
+    '/graphql',
+    view_func=GraphQLView.as_view(
+        'graphql',
+        schema=schema,
+        graphiql=True
+    )
+)
