@@ -4,4 +4,6 @@ import 'bulma/css/bulma.min.css'
 
 import Base from './components/base'
 
-ReactDOM.render(<Base />, document.getElementById('content'))
+const props = JSON.parse(document.getElementById('content').getAttribute('props'))
+
+ReactDOM.render(<Base {...props} />, document.getElementById('content'))

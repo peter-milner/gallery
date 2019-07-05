@@ -9,6 +9,8 @@ pylint = "*"
 [packages]
 flask = "*"
 requests = "*"
+flask-graphql = "*"
+graphene = "*"
 
 [requires]
 python_version = "3.7"
