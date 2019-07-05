@@ -6,6 +6,7 @@ RUN apk update \
 
 COPY .pylintrc /
 COPY webpack.config.js /
+COPY .babelrc /
 
 COPY Pipfile /
 COPY Pipfile.lock /
