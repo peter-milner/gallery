@@ -31,7 +31,7 @@ export default function Base () {
                     <div className='container'>
                         <h1 className='title'>What's popular today</h1>
                         { data.photos && 
-                            <Gallery photos={data.photos.photos} />
+                            <Gallery photos={data.photos.photos}/>
                         }
                     </div>
                 )

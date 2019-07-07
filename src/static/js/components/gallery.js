@@ -1,19 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+export function rowMapping (width) {
+    switch (true) {
+        case (width <= 768):
+            return 6
+        case (width <= 1024):
+            return 5
+        case (width <= 1216):
+            return 4
+        default:
+            return 3
+    }
+}
+
 export default function Gallery (props) {
-    console.log(window.innerWidth)
+    const [height, setHeight] = useState(window.innerHeight)
+    const [width, setWidth] = useState(window.innerWidth)
+
+    window.addEventListener('resize', () => {
+        setHeight(window.innerHeight)
+        setWidth(window.innerWidth)
+    })
+
+    const rowHeight = height/(rowMapping(width))
+
     return (
-        <div className='columns is-multiline'>
+        <div className='columns is-multiline is-mobile'>
             {props.photos.map((photo, index) => {
-                // TODO: Use viewport instead of magic number
-                const height = 264
                 const ratio = photo.width/photo.height
-                const width = (ratio * height)
+                const width = (ratio * rowHeight)
                 return (
-                    <div key={index} className='column is-narrow' style={{width: width, flexGrow: 1}}>
+                    <div 
+                        key={index} 
+                        className='column' 
+                        style={{
+                            width: width,
+                            flexGrow: 1,
+                            flexBasis: 'auto'
+                        }}
+                    >
                         <figure className='image' >
-                            <img src={photo.url} style={{height: height}}/>
+                            <img src={photo.url} style={{height: rowHeight}}/>
                         </figure>
                     </div>
                 )
@@ -23,5 +51,5 @@ export default function Gallery (props) {
 }
 
 Gallery.propTypes = {
-    photos: PropTypes.array
+    photos: PropTypes.array,
 }

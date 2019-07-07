@@ -24,6 +24,7 @@ class Query(graphene.ObjectType):
             'feature': 'popular',
             'consumer_key': current_app.config['CONSUMER_KEY'],
             'page': page,
+            'rpp': 50,
             'image_size': [6]
         }
         r = requests.get('https://api.500px.com/v1/photos', params=params)
