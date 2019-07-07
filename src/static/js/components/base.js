@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
+import Gallery from './gallery'
+
 export const query = gql`
     query ($page: Int!) {
         photos(page: $page) {
@@ -9,6 +11,8 @@ export const query = gql`
             totalPages
             photos {
                 url
+                width
+                height
             }
         }
     }
@@ -23,10 +27,12 @@ export default function Base () {
             variables={{page: page}}
         >
             {({ data }) => {
-                console.log(data)
                 return (
                     <div className='container'>
                         <h1 className='title'>What's popular today</h1>
+                        { data.photos && 
+                            <Gallery photos={data.photos.photos} />
+                        }
                     </div>
                 )
             }}
