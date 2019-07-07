@@ -4,5 +4,8 @@ docker-compose.yml
 # Python related
 __pycache__/
 
+# Javascript related
+dist/
+
 # Env related
 .env
