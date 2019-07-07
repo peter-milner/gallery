@@ -15,22 +15,30 @@ export function rowMapping (width) {
 }
 
 export default function Gallery (props) {
+    const [page, setPage] = useState(1)
     const [height, setHeight] = useState(window.innerHeight)
     const [width, setWidth] = useState(window.innerWidth)
 
-    window.addEventListener('resize', () => {
+    window.onresize = () => {
         setHeight(window.innerHeight)
         setWidth(window.innerWidth)
-    })
+    }
+
+    window.onscroll = () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            props.onLoadMore(page+1)
+            setPage(page+1)
+        }
+    }
 
     const rowHeight = height/(rowMapping(width))
 
     return (
-        <div className='columns is-multiline is-mobile'>
+        <div id='gallery' className='columns is-multiline is-mobile'>
             {props.photos.map((photo, index) => {
                 const width = (photo.aspectRatio * rowHeight)
                 return (
-                    <div 
+                    <div
                         key={index} 
                         className='column' 
                         style={{
@@ -39,7 +47,7 @@ export default function Gallery (props) {
                             flexBasis: 'auto'
                         }}
                     >
-                        <figure className='image' >
+                        <figure className='image'>
                             <img src={photo.url} style={{height: rowHeight}}/>
                         </figure>
                     </div>

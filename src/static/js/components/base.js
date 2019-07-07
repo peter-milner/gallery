@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 
 import Gallery from './gallery'
 
 export const query = gql`
-    query ($page: Int!) {
+    query ($page: Int) {
         photos(page: $page) {
             currentPage
             totalPages
@@ -18,19 +18,31 @@ export const query = gql`
 `
 
 export default function Base () {
-    const [page, setPage] = useState(1)
-
     return (
         <Query
             query={query}
-            variables={{page: page}}
         >
-            {({ data }) => {
+            {({ data, fetchMore }) => {
+
                 return (
                     <div className='container'>
                         <h1 className='title'>What's popular today</h1>
                         { data.photos && 
-                            <Gallery photos={data.photos.photos}/>
+                            <Gallery 
+                                photos={data.photos.photos}
+                                onLoadMore={(page) =>
+                                    fetchMore({
+                                        variables:{ page:page },
+                                        updateQuery: (prev, { fetchMoreResult }) => {
+                                            if (!fetchMoreResult) return prev
+                                            const photos = Object.assign({}, fetchMoreResult.photos, {
+                                                photos: [...prev.photos.photos, ...fetchMoreResult.photos.photos]
+                                            })
+                                            return { photos }
+                                        }
+                                    })
+                                }
+                            />
                         }
                     </div>
                 )

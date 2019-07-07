@@ -18,7 +18,7 @@ class Photos(graphene.ObjectType):
 class Query(graphene.ObjectType):
     photos = graphene.Field(Photos, page=graphene.Int())
 
-    def resolve_photos(self, _info, page):
+    def resolve_photos(self, _info, page=1):
         params = {
             'feature': 'popular',
             'consumer_key': current_app.config['CONSUMER_KEY'],
