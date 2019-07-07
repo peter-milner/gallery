@@ -11,8 +11,7 @@ export const query = gql`
             totalPages
             photos {
                 url
-                width
-                height
+                aspectRatio
             }
         }
     }

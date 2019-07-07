@@ -5,8 +5,7 @@ from flask import current_app
 
 class Photo(graphene.ObjectType):
     url = graphene.String()
-    width = graphene.Int()
-    height = graphene.Int()
+    aspect_ratio = graphene.Float()
     title = graphene.String()
     description = graphene.String()
     artist = graphene.String()
@@ -37,8 +36,7 @@ class Query(graphene.ObjectType):
         for p in r['photos']:
             photo = {}
             photo['url'] = p['images'][0]['url']
-            photo['width'] = p['width']
-            photo['height'] = p['height']
+            photo['aspect_ratio'] = p['width'] / p['height']
             result['photos'].append(photo)
         return result
 

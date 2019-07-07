@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export function rowMapping (width) {
     switch (true) {
         case (width <= 768):
-            return 6
+            return 8
         case (width <= 1024):
             return 5
         case (width <= 1216):
@@ -28,8 +28,7 @@ export default function Gallery (props) {
     return (
         <div className='columns is-multiline is-mobile'>
             {props.photos.map((photo, index) => {
-                const ratio = photo.width/photo.height
-                const width = (ratio * rowHeight)
+                const width = (photo.aspectRatio * rowHeight)
                 return (
                     <div 
                         key={index} 
