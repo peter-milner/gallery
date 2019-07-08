@@ -5,6 +5,7 @@ RUN apk update \
     && pip install pipenv
 
 COPY .pylintrc /
+COPY .eslintrc /
 COPY webpack.config.js /
 COPY .babelrc /
 

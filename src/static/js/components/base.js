@@ -21,36 +21,36 @@ export const query = gql`
 `
 
 export default function Base () {
-    return (
-        <Query
-            query={query}
-            notifyOnNetworkStatusChange={true}
-        >
-            {({ data, fetchMore, loading }) => {
-                return (
-                    <div className='container'>
-                        <h1 className='title'>What's popular today</h1>
-                        { data.photos && 
-                            <Gallery 
-                                photos={data.photos.photos}
-                                onLoadMore={(page) =>
-                                    fetchMore({
-                                        variables:{ page:page },
-                                        updateQuery: (prev, { fetchMoreResult }) => {
-                                            if (!fetchMoreResult) return prev
-                                            const photos = Object.assign({}, fetchMoreResult.photos, {
-                                                photos: [...prev.photos.photos, ...fetchMoreResult.photos.photos]
-                                            })
-                                            return { photos }
-                                        }
+  return (
+    <Query
+      query={query}
+      notifyOnNetworkStatusChange={true}
+    >
+      {({ data, fetchMore, loading }) => {
+        return (
+          <div className='container'>
+            <h1 className='title'>What&apos;s popular today</h1>
+            { data.photos &&
+                            <Gallery
+                              photos={data.photos.photos}
+                              onLoadMore={(page) =>
+                                fetchMore({
+                                  variables: { page: page },
+                                  updateQuery: (prev, { fetchMoreResult }) => {
+                                    if (!fetchMoreResult) return prev
+                                    const photos = Object.assign({}, fetchMoreResult.photos, {
+                                      photos: [...prev.photos.photos, ...fetchMoreResult.photos.photos]
                                     })
-                                }
-                                loading={loading}
+                                    return { photos }
+                                  }
+                                })
+                              }
+                              loading={loading}
                             />
-                        }
-                    </div>
-                )
-            }}
-        </Query>
-    )  
+            }
+          </div>
+        )
+      }}
+    </Query>
+  )
 }
