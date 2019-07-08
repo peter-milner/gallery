@@ -15,7 +15,7 @@ export default function Modal (props) {
           className='modal-card-foot'
           style={{
             display: 'block',
-            overflowY: 'scroll',
+            overflowY: 'auto',
             maxHeight: '25%'
           }}
         >
