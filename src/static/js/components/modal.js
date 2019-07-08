@@ -6,7 +6,7 @@ export default function Modal (props) {
     <div className='modal is-active'>
       <div className='modal-background'></div>
       <div className='modal-card'>
-        <section className='modal-content'>
+        <section className='modal-content is-marginless'>
           <p className='image'>
             <img src={props.photo.url} />
           </p>
