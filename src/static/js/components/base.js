@@ -33,19 +33,22 @@ export default function Base () {
             { data.photos &&
                             <Gallery
                               photos={data.photos.photos}
-                              onLoadMore={(page) =>
-                                fetchMore({
-                                  variables: { page: page },
-                                  updateQuery: (prev, { fetchMoreResult }) => {
-                                    if (!fetchMoreResult) return prev
-                                    const photos = Object.assign({}, fetchMoreResult.photos, {
-                                      photos: [...prev.photos.photos, ...fetchMoreResult.photos.photos]
-                                    })
-                                    return { photos }
-                                  }
-                                })
-                              }
+                              onLoadMore={(page) => {
+                                if (page <= data.photos.totalPages) {
+                                  fetchMore({
+                                    variables: { page: page },
+                                    updateQuery: (prev, { fetchMoreResult }) => {
+                                      if (!fetchMoreResult) return prev
+                                      const photos = Object.assign({}, fetchMoreResult.photos, {
+                                        photos: [...prev.photos.photos, ...fetchMoreResult.photos.photos]
+                                      })
+                                      return { photos }
+                                    }
+                                  })
+                                }
+                              }}
                               loading={loading}
+                              page={data.photos.currentPage}
                             />
             }
           </div>

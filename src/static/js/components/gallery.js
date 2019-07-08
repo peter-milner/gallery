@@ -17,7 +17,6 @@ export function rowMapping (width) {
 }
 
 export default function Gallery (props) {
-  const [page, setPage] = useState(1)
   const [height, setHeight] = useState(window.innerHeight)
   const [width, setWidth] = useState(window.innerWidth)
   const [chosenPhoto, setChosenPhoto] = useState(null)
@@ -31,8 +30,7 @@ export default function Gallery (props) {
 
   window.onscroll = () => {
     if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - rowHeight) {
-      props.onLoadMore(page + 1)
-      setPage(page + 1)
+      props.onLoadMore(props.page + 1)
     }
   }
 
@@ -72,5 +70,6 @@ Gallery.propTypes = {
     url: PropTypes.string.isRequired
   })),
   onLoadMore: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  page: PropTypes.number.isRequired
 }
