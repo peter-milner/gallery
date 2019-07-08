@@ -1,15 +1,17 @@
-# pylint: disable=C0103,C0111
-
 import os
 from flask import Flask, render_template
 from flask_graphql import GraphQLView
 
+from cache import cache
 from schema import schema
 
-CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
-
 app = Flask(__name__)
-app.config['CONSUMER_KEY'] = CONSUMER_KEY
+
+app.config['CONSUMER_KEY'] = os.environ.get('CONSUMER_KEY')
+app.config['CACHE_TYPE'] = os.environ.get('CACHE_TYPE', 'redis')
+app.config['CACHE_REDIS_HOST'] = os.environ.get('REDIS_HOST')
+
+cache.init_app(app)
 
 @app.route('/')
 def index():

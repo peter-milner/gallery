@@ -17,3 +17,10 @@ services:
     volumes:
       - /path/to/src:/app
     command: yarn run watch
+  redis:
+    container_name: my-g-redis
+    image: redis
+    ports:
+      - "6379:6379"
+    depends_on:
+      - flask

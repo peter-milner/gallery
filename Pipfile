@@ -11,6 +11,8 @@ flask = "*"
 requests = "*"
 flask-graphql = "*"
 graphene = "*"
+flask-caching = "*"
+redis = "*"
 
 [requires]
 python_version = "3.7"

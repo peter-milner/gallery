@@ -3,6 +3,8 @@ import graphene
 
 from flask import current_app
 
+from cache import cache
+
 class Photo(graphene.ObjectType):
     url = graphene.String()
     aspect_ratio = graphene.Float()
@@ -13,11 +15,12 @@ class Photo(graphene.ObjectType):
 class Photos(graphene.ObjectType):
     current_page = graphene.Int()
     total_pages = graphene.Int()
-    photos = graphene.List(Photo)    
+    photos = graphene.List(Photo)
 
 class Query(graphene.ObjectType):
     photos = graphene.Field(Photos, page=graphene.Int())
 
+    @cache.memoize(timeout=60)
     def resolve_photos(self, _info, page=1):
         params = {
             'feature': 'popular',
@@ -26,6 +29,7 @@ class Query(graphene.ObjectType):
             'rpp': 50,
             'image_size': 1080
         }
+
         r = requests.get('https://api.500px.com/v1/photos', params=params).json()
         result = {}
         result['current_page'] = r['current_page']
