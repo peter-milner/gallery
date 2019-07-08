@@ -66,10 +66,11 @@ const renderBase = (mocks = defaultMocks) => {
 }
 
 describe('<Base/>', () => {
-  test('snapshot', () => {
+  test('Snapshot', () => {
     const renderedBase = renderBase()
     expect(renderedBase).toMatchSnapshot()
   })
+
   test('Gallery exists after data is available', async () => {
     const renderedBase = renderBase()
 
@@ -81,7 +82,7 @@ describe('<Base/>', () => {
     expect(renderedBase.find(Gallery).exists()).toEqual(true)
   })
 
-  test('Can fetchMore photos', async () => {
+  test('Can fetchMore and append more photos', async () => {
     const renderedBase = renderBase()
 
     await new Promise(resolve => setTimeout(resolve, 10))

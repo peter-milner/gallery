@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Modal from './modal'
 
-export function rowMapping (width) {
+export const rowMapping = (width) => {
   switch (true) {
     case (width <= 768):
       return 8
@@ -27,6 +27,8 @@ export default function Gallery (props) {
     setHeight(window.innerHeight)
     setWidth(window.innerWidth)
   }
+
+  // console.log(rowHeight)
 
   window.onscroll = () => {
     if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - rowHeight * 3) {
