@@ -24,14 +24,14 @@ export default function Gallery (props) {
         setWidth(window.innerWidth)
     }
 
+    const rowHeight = height/(rowMapping(width))
+
     window.onscroll = () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight-rowHeight) {
             props.onLoadMore(page+1)
             setPage(page+1)
         }
     }
-
-    const rowHeight = height/(rowMapping(width))
 
     return (
         <div id='gallery' className='columns is-multiline is-mobile'>
@@ -59,4 +59,6 @@ export default function Gallery (props) {
 
 Gallery.propTypes = {
     photos: PropTypes.array,
+    onLoadMore: PropTypes.func,
+    loading: PropTypes.bool,
 }

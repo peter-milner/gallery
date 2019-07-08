@@ -21,9 +21,9 @@ export default function Base () {
     return (
         <Query
             query={query}
+            notifyOnNetworkStatusChange={true}
         >
-            {({ data, fetchMore }) => {
-
+            {({ data, fetchMore, loading }) => {
                 return (
                     <div className='container'>
                         <h1 className='title'>What's popular today</h1>
@@ -42,6 +42,7 @@ export default function Base () {
                                         }
                                     })
                                 }
+                                loading={loading}
                             />
                         }
                     </div>
