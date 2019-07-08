@@ -30,6 +30,11 @@ export default function Modal (props) {
 }
 
 Modal.propTypes = {
-    photo: PropTypes.object,
-    closeModa: PropTypes.func,
+    photo: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        artist: PropTypes.string.isRequired,
+        description: PropTypes.string
+    }),
+    closeModal: PropTypes.func.isRequired
 }

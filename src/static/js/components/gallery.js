@@ -67,7 +67,10 @@ export default function Gallery (props) {
 }
 
 Gallery.propTypes = {
-    photos: PropTypes.array,
-    onLoadMore: PropTypes.func,
-    loading: PropTypes.bool,
+    photos: PropTypes.arrayOf(PropTypes.shape({
+        aspectRatio: PropTypes.number.isRequired,
+        url: PropTypes.string.isRequired,
+    })),
+    onLoadMore: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
 }
