@@ -5,6 +5,8 @@ from flask import current_app
 
 from cache import cache
 
+PHOTOS_ENDPOINT = 'https://api.500px.com/v1/photos'
+
 class Photo(graphene.ObjectType):
     url = graphene.String()
     aspect_ratio = graphene.Float()
@@ -30,7 +32,7 @@ class Query(graphene.ObjectType):
             'image_size': 1080
         }
 
-        r = requests.get('https://api.500px.com/v1/photos', params=params).json()
+        r = requests.get(PHOTOS_ENDPOINT, params=params).json()
         result = {}
         result['current_page'] = r['current_page']
         result['total_pages'] = r['total_pages']
