@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import Modal from './modal'
+
 export function rowMapping (width) {
     switch (true) {
         case (width <= 768):
@@ -18,13 +20,14 @@ export default function Gallery (props) {
     const [page, setPage] = useState(1)
     const [height, setHeight] = useState(window.innerHeight)
     const [width, setWidth] = useState(window.innerWidth)
+    const [chosenPhoto, setChosenPhoto] = useState(null)
+
+    const rowHeight = height/(rowMapping(width))
 
     window.onresize = () => {
         setHeight(window.innerHeight)
         setWidth(window.innerWidth)
     }
-
-    const rowHeight = height/(rowMapping(width))
 
     window.onscroll = () => {
         if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight-rowHeight) {
@@ -35,6 +38,10 @@ export default function Gallery (props) {
 
     return (
         <div id='gallery' className='columns is-multiline is-mobile'>
+            <Modal 
+                photo={chosenPhoto}
+                closeModal={() => {setChosenPhoto(null)}}
+            />
             {props.photos.map((photo, index) => {
                 const width = (photo.aspectRatio * rowHeight)
                 return (
@@ -48,7 +55,9 @@ export default function Gallery (props) {
                         }}
                     >
                         <figure className='image'>
-                            <img src={photo.url} style={{height: rowHeight}}/>
+                            <a onClick={() => {setChosenPhoto(photo)}}>
+                                <img src={photo.url} style={{height: rowHeight}}/>
+                            </a>
                         </figure>
                     </div>
                 )

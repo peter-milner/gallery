@@ -12,6 +12,9 @@ export const query = gql`
             photos {
                 url
                 aspectRatio
+                name
+                description
+                artist
             }
         }
     }

@@ -6,7 +6,7 @@ from flask import current_app
 class Photo(graphene.ObjectType):
     url = graphene.String()
     aspect_ratio = graphene.Float()
-    title = graphene.String()
+    name = graphene.String()
     description = graphene.String()
     artist = graphene.String()
 
@@ -24,11 +24,9 @@ class Query(graphene.ObjectType):
             'consumer_key': current_app.config['CONSUMER_KEY'],
             'page': page,
             'rpp': 50,
-            'image_size': [6]
+            'image_size': 1080
         }
-        r = requests.get('https://api.500px.com/v1/photos', params=params)
-        print(r.url, flush=True)
-        r = r.json()
+        r = requests.get('https://api.500px.com/v1/photos', params=params).json()
         result = {}
         result['current_page'] = r['current_page']
         result['total_pages'] = r['total_pages']
@@ -37,6 +35,9 @@ class Query(graphene.ObjectType):
             photo = {}
             photo['url'] = p['images'][0]['url']
             photo['aspect_ratio'] = p['width'] / p['height']
+            photo['name'] = p['name']
+            photo['description'] = p['description']
+            photo['artist'] = p['user']['username']
             result['photos'].append(photo)
         return result
 
