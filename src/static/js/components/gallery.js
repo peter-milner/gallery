@@ -29,7 +29,7 @@ export default function Gallery (props) {
   }
 
   window.onscroll = () => {
-    if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - rowHeight) {
+    if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - rowHeight * 3) {
       props.onLoadMore(props.page + 1)
     }
   }
