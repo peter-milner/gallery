@@ -28,8 +28,6 @@ export default function Gallery (props) {
     setWidth(window.innerWidth)
   }
 
-  // console.log(rowHeight)
-
   window.onscroll = () => {
     if (!props.loading && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - rowHeight * 3) {
       props.onLoadMore(props.page + 1)
